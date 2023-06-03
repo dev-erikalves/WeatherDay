@@ -4,7 +4,7 @@ export default function SearchInput() {
     return (
         <div>
             <input type="search" name="searchInput" id={styles.searchInput} placeholder="Localização" />
-            <button><img src="" alt="" /></button>
+            <button id={styles.SearchBtn}><img src="" alt="" /></button>
         </div>    
     )
 }

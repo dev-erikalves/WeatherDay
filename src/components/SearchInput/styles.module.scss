@@ -1,0 +1,9 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+#searchInput {
+    @include common-measures(auto, .8rem);
+    @include border(none, .5rem 0 0 .5rem);
+    @include fonts-style(1em, $font-secundary, 500);
+    width: 100%;
+}
