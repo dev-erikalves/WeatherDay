@@ -1,4 +1,4 @@
-import SearchIcon from "../../assets/search-icon.svg"
+import SearchIcon from "../../../../assets/search-icon.svg"
 import styles from "./styles.module.scss"
 
 export default function SearchInput(props) {
