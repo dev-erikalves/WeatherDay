@@ -1,4 +1,4 @@
-import Weather from "./components/SearchInput/Search.jsx";
+import Weather from "./components/MainContent/MainContent.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import "./styles/app.scss"
 

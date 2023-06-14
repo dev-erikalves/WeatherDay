@@ -1,19 +1,11 @@
-@import "../../styles/variables.scss";
 @import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
 
 .searchContainer {
     display: flex;
     margin: 1rem auto;
 }
-#searchInput {
-    @include common-measures(auto, .8rem);
-    @include border(none, .5rem 0 0 .5rem);
-    @include fonts-style(1em, $font-secundary, 500);
-    width: 100%;
-    &:focus {
-        outline: 1px solid #504a4a38;
-    }
-}
+
 #searchBtn {
     @include border(none, 50%);
     padding: .75rem .8rem;
@@ -23,5 +15,14 @@
     &:hover {
         background-color: #2e2d2d;
         scale: 1.03;
+    }
+}
+#searchInput {
+    @include common-measures(auto, .8rem);
+    @include border(none, .5rem 0 0 .5rem);
+    @include fonts-style(1em, $font-secundary, 500);
+    width: 100%;
+    &:focus {
+        outline: 1px solid #504a4a38;
     }
 }
