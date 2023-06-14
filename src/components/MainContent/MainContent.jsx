@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import SearchInput from "../Header/components/SearchInput/SearchInput.jsx"
 import styles from "./styles.module.scss";
@@ -11,81 +10,6 @@ export default function Weather() {
   const [isLoading, setIsLoading] = useState(true)
 
   const api_key = "e5cebe1949b3839661f4b78ddfa60298";
-
-  //obter localização automaticamente
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        let lat = position.coords.latitude
-        let lon = position.coords.longitude
-
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=${api_key}`)
-          .then((response) => {
-            if (response.status === 200) {
-              return response.json();
-            } else {
-              throw new Error('Erro na solicitação de resposta da API');
-            }
-          })
-          .then((data) => {
-            setWeatherData(showWeatherInfos(data));
-            setIconCode(data.weather[0].icon);
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            console.log(error);
-            setIsLoading(true);
-          });
-      },
-      (error) => {
-        if (error.code === 1) {
-          alert("Geolocalização desativada ou negada pelo usuario, ative-a ou busque manualmente na barra de pesquisa.")
-          setIsLoading(true);
-        } else {
-          console.log(error)
-        }
-      }
-    );
-  }, []);
-  // obter localização manualmente
-  function searchBtn() {
-    if (city) {
-      setWeatherData(null)
-      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=pt_br&appid=${api_key}`)
-        .then((response) => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            throw new Error('Erro na solicitação de resposta da API')
-          }
-        })
-        .then((data) => {
-          setWeatherData(showWeatherInfos(data));
-          setIconCode(data.weather[0].icon);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("Cidade não encontrada, tente novamente!")
-          setIsLoading(true);
-        });
-    }
-  }
-
-  const handleChangeInput = (ev) => {
-    setCity(ev.target.value)
-  }
-
-  function showWeatherInfos(data) {
-    let {
-      name,
-      weather: [{ icon, description }],
-      main: { temp, feels_like, humidity },
-      wind: { speed },
-      sys: { sunrise, sunset },
-    } = data
-    return { name, icon, description, temp, feels_like, humidity, speed, sunrise, sunset };
-  }
 
   const iconMap = {
     "01d": "01d.svg", "01n": "01n.svg",
@@ -101,20 +25,85 @@ export default function Weather() {
     "50d": "50d.svg", "50n": "50n.svg"
   }
 
-  return (
-      <section>
-            <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn}/>
-        
-            <p id={styles.date}>{dayjs().format('DD/MM/YYYY')}</p>
-            <p id={styles.cityName}>{weatherData ? weatherData.name : '...'}</p>
-            {isLoading ? (
-              <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
-            ) : (
-              iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Ícone do tempo" />
-            )}
-            <p id={styles.description}>{weatherData ? weatherData.description : '...'}</p>
-            <p id={styles.titleCurrentTemp}>Temperatura Atual</p>
-            <p id={styles.currentTemp}>{weatherData ? Math.floor(weatherData.temp) - 1 : '...'}ºC</p>
-      </section>
-  )
+  const fetchWeatherData = (url) => {
+    fetch(url)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error('Erro na solicitação de resposta da API');
+        }
+      })
+      .then((data) => {
+        setWeatherData(extractInfosApi(data))
+        setIconCode(data.weather[0].icon)
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(true);
+      });
+  };
+
+  //obter localização automaticamente
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude: lat, longitude: lon } = position.coords;
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=${api_key}`
+        fetchWeatherData(url)
+      },
+      (error) => {
+        if (error.code === 1) {
+          alert("Geolocalização desativada ou negada pelo usuario, ative-a ou busque manualmente na barra de pesquisa.")
+          setIsLoading(true);
+        } else {
+          console.log(error)
+        }
+      }
+    );
+  }, []);
+  // obter localização manualmente
+  function searchBtn() {
+    if (city) {
+      setWeatherData(null)
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=pt_br&appid=${api_key}`
+      fetchWeatherData(url)
+    } else{
+    alert("Cidade não encontrada, tente novamente!")
+    setIsLoading(true);
+  }
+}
+
+const handleChangeInput = (ev) => {
+  setCity(ev.target.value)
+}
+
+function extractInfosApi(data) {
+  let {
+    name,
+    weather: [{ icon, description }],
+    main: { temp, feels_like, humidity },
+    wind: { speed },
+    sys: { sunrise, sunset },
+  } = data
+  return { name, icon, description, temp, feels_like, humidity, speed, sunrise, sunset };
+}
+
+return (
+  <section>
+    <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn} />
+
+    <p id={styles.date}>{dayjs().format('DD/MM/YYYY')}</p>
+    <p id={styles.cityName}>{weatherData ? weatherData.name : '...'}</p>
+    {isLoading ? (
+      <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
+    ) : (
+      iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Ícone do tempo" />
+    )}
+    <p id={styles.description}>{weatherData ? weatherData.description : '...'}</p>
+    <p id={styles.titleCurrentTemp}>Temperatura Atual</p>
+    <p id={styles.currentTemp}>{weatherData ? Math.floor(weatherData.temp) - 1 : '...'}ºC</p>
+  </section>
+)
 }
