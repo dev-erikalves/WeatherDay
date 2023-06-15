@@ -78,20 +78,23 @@ export default function Weather() {
   }
 
   return (
-    <section>
+    <main className={styles.mainContent}>
       <ToastContainer />
-      <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn} />
-
-      <p id={styles.date}>{dayjs().format('DD/MM/YYYY')}</p>
-      <p id={styles.cityName}>{weatherData ? weatherData.name : '...'}</p>
-      {isLoading ? (
-        <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
-      ) : (
-        iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Ícone do tempo" />
-      )}
-      <p id={styles.description}>{weatherData ? weatherData.description : '...'}</p>
-      <p id={styles.titleCurrentTemp}>Temperatura Atual</p>
-      <p id={styles.currentTemp}>{weatherData ? Math.floor(weatherData.temp) - 1 : '...'}ºC</p>
-    </section>
+        <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn} />
+        <div id={styles.cityNameAndDate}>
+          <p id={styles.cityName}>{weatherData ? weatherData.name : '...'}</p>
+          <p id={styles.date}>{dayjs().format('DD/MM/YYYY')}</p>
+        </div>
+        <picture>
+          {isLoading ? (
+            <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
+          ) : (
+            iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Ícone do tempo" />
+          )}
+        </picture>
+        <p id={styles.description}>{weatherData ? weatherData.description : '...'}</p>
+        <p id={styles.titleCurrentTemp}>Temperatura Atual</p>
+        <p id={styles.currentTemp}>{weatherData ? Math.floor(weatherData.temp) - 1 : '...'}ºC</p>
+    </main>
   )
 }

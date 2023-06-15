@@ -1,3 +1,56 @@
 @import "../../styles/variables.scss";
 @import "../../styles/mixins.scss";
 
+.mainContent{
+    display: flex;
+    flex-direction: column;
+    margin: 2rem auto;
+    min-height: 100vh;
+    max-width: 600px;
+    box-shadow: 0px 0px 20px -5px rgb(122, 155, 179);
+    align-items: center;
+    padding: 1rem;
+    border-radius: .75rem;
+    background-color: $bg-color-secundary;
+    
+}
+#cityNameAndDate{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1rem 0 3rem;
+}
+#date{
+    color: $text-color-primary;
+    font-size: 1.1em;
+    font-family: $font-primary;
+    letter-spacing: .5rem;
+}
+#cityName{
+font-size: 1.2em;
+letter-spacing: .3rem;
+font-family: $font-secundary;
+color: $text-color-secundary;
+}
+.mainContent > picture > img{
+    max-width: 8rem;
+    width: 8rem;
+    margin-bottom: 2rem;
+}
+#description{
+    font-size: 1.2em;
+    font-family: $font-primary;
+    color: $text-color-primary;
+    text-transform: capitalize;
+}
+#titleCurrentTemp{
+    font-family: $font-secundary;
+    margin: 1rem 0 .4rem;
+    color: $text-color-secundary;
+}
+#currentTemp{
+    font-size: 1.5em;
+    font-family: $font-primary;
+    font-weight: 600;
+    color: $text-color-secundary;
+}
