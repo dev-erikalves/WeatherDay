@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import dayjs from "dayjs";
+import iconMap from "./IconMap.json"
 import SearchInput from "../Header/components/SearchInput/SearchInput.jsx"
 import styles from "./styles.module.scss";
 
@@ -12,20 +13,6 @@ export default function Weather() {
   const [isLoading, setIsLoading] = useState(true)
 
   const api_key = "e5cebe1949b3839661f4b78ddfa60298";
-
-  const iconMap = {
-    "01d": "01d.svg", "01n": "01n.svg",
-    "02d": "02d.svg", "02n": "02n.svg",
-    "03d": "03d.svg", "03n": "03n.svg",
-    "04d": "04d.svg", "04n": "04n.svg",
-    "05d": "05d.svg", "05n": "05n.svg",
-    "06d": "06d.svg", "06n": "06n.svg",
-    "09d": "09d.svg", "09n": "09n.svg",
-    "10d": "10d.svg", "10n": "10n.svg",
-    "11d": "11d.svg", "11n": "11n.svg",
-    "13d": "13d.svg", "13n": "13n.svg",
-    "50d": "50d.svg", "50n": "50n.svg"
-  }
 
   const fetchWeatherData = (url) => {
     fetch(url)
@@ -43,7 +30,6 @@ export default function Weather() {
       })
       .catch((error) => {
         console.log(error);
-        setIsLoading(true);
         toast.info("Cidade não encontrada, por favor tente novamente!")
       });
   };
@@ -59,7 +45,6 @@ export default function Weather() {
       (error) => {
         if (error.code === 1) {
           toast.error("Geolocalização desativada ou negada pelo usuario, ative-a ou busque manualmente na barra de pesquisa.")
-          setIsLoading(true);
         } else {
           console.log(error)
         }
@@ -74,7 +59,6 @@ export default function Weather() {
       fetchWeatherData(url)
     } else {
       toast.warning("Digite o nome de uma cidade!")
-      setIsLoading(true);
     }
   }
 
