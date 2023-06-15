@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import dayjs from "dayjs";
 import SearchInput from "../Header/components/SearchInput/SearchInput.jsx"
 import styles from "./styles.module.scss";
@@ -42,6 +44,7 @@ export default function Weather() {
       .catch((error) => {
         console.log(error);
         setIsLoading(true);
+        toast.info("Cidade não encontrada, por favor tente novamente!")
       });
   };
 
@@ -55,7 +58,7 @@ export default function Weather() {
       },
       (error) => {
         if (error.code === 1) {
-          alert("Geolocalização desativada ou negada pelo usuario, ative-a ou busque manualmente na barra de pesquisa.")
+          toast.error("Geolocalização desativada ou negada pelo usuario, ative-a ou busque manualmente na barra de pesquisa.")
           setIsLoading(true);
         } else {
           console.log(error)
@@ -69,41 +72,42 @@ export default function Weather() {
       setWeatherData(null)
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=pt_br&appid=${api_key}`
       fetchWeatherData(url)
-    } else{
-    alert("Cidade não encontrada, tente novamente!")
-    setIsLoading(true);
+    } else {
+      toast.warning("Digite o nome de uma cidade!")
+      setIsLoading(true);
+    }
   }
-}
 
-const handleChangeInput = (ev) => {
-  setCity(ev.target.value)
-}
+  const handleChangeInput = (ev) => {
+    setCity(ev.target.value)
+  }
 
-function extractInfosApi(data) {
-  let {
-    name,
-    weather: [{ icon, description }],
-    main: { temp, feels_like, humidity },
-    wind: { speed },
-    sys: { sunrise, sunset },
-  } = data
-  return { name, icon, description, temp, feels_like, humidity, speed, sunrise, sunset };
-}
+  function extractInfosApi(data) {
+    let {
+      name,
+      weather: [{ icon, description }],
+      main: { temp, feels_like, humidity },
+      wind: { speed },
+      sys: { sunrise, sunset },
+    } = data
+    return { name, icon, description, temp, feels_like, humidity, speed, sunrise, sunset };
+  }
 
-return (
-  <section>
-    <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn} />
+  return (
+    <section>
+      <ToastContainer />
+      <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn} />
 
-    <p id={styles.date}>{dayjs().format('DD/MM/YYYY')}</p>
-    <p id={styles.cityName}>{weatherData ? weatherData.name : '...'}</p>
-    {isLoading ? (
-      <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
-    ) : (
-      iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Ícone do tempo" />
-    )}
-    <p id={styles.description}>{weatherData ? weatherData.description : '...'}</p>
-    <p id={styles.titleCurrentTemp}>Temperatura Atual</p>
-    <p id={styles.currentTemp}>{weatherData ? Math.floor(weatherData.temp) - 1 : '...'}ºC</p>
-  </section>
-)
+      <p id={styles.date}>{dayjs().format('DD/MM/YYYY')}</p>
+      <p id={styles.cityName}>{weatherData ? weatherData.name : '...'}</p>
+      {isLoading ? (
+        <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
+      ) : (
+        iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Ícone do tempo" />
+      )}
+      <p id={styles.description}>{weatherData ? weatherData.description : '...'}</p>
+      <p id={styles.titleCurrentTemp}>Temperatura Atual</p>
+      <p id={styles.currentTemp}>{weatherData ? Math.floor(weatherData.temp) - 1 : '...'}ºC</p>
+    </section>
+  )
 }
