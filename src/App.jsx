@@ -1,15 +1,14 @@
-import Header from "./components/Header/Header.jsx";
-import Weather from "./components/MainContent/MainContent.jsx";
-import Footer from "./components/Footer/Footer.jsx";
+import Header from "./pages/home/Header/Header.jsx";
+import MainContent from "./pages/home/MainContent/MainContent.jsx";
+import Footer from "./pages/home/Footer/Footer.jsx";
 import "./styles/app.scss"
 
 export default function App() {
   return (
     <>
       <Header />
-      <Weather />
+      <MainContent />
       <Footer />
     </>
   )
 }
-

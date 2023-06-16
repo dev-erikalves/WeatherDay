@@ -6,15 +6,15 @@ export const formatTime = (epochTime) => {
     let minutes = date.getMinutes()
     return `${hours}:${minutes}`
 }
-export default function CardMoreInfo({ humidity, speed, sunset, sunrise }) {
+export default function CardMoreInfo({ humidity, speed, sunset, sunrise, className }) {
     return (
-        <aside className={styles.cards}>
+        <>
             <h3 className={styles.title}>Mais Informações</h3>
             <Subtitle name='Vento' weatherInfo={speed} metric='Km/h'/>
             <Subtitle name='Humidade' weatherInfo={humidity} metric='%'/>
             <Subtitle name='Nascer do Sol' weatherInfo={formatTime(sunrise)} metric='hrs'/>
             <Subtitle name='Pôr do Sol' weatherInfo={formatTime(sunset)} metric='hrs'/>
-        </aside>
+        </>
     )
 }
 export const Subtitle = ({ name, weatherInfo, metric }) => {
@@ -24,4 +24,4 @@ export const Subtitle = ({ name, weatherInfo, metric }) => {
             <span>{weatherInfo}{metric}</span>
         </div>
     )
-}
+} 

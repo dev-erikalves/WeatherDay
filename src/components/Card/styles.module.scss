@@ -1,0 +1,13 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.card{
+    display: flex;
+    min-width: 15rem;
+    margin: 0 auto;
+    flex-direction: column;
+    box-shadow: 0px 0px 20px -5px rgb(122, 155, 179);
+    padding: .5rem;
+    border-radius: .75rem;
+    background-color: $bg-color-secundary;
+}

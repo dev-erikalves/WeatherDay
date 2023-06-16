@@ -4,7 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 import iconMap from "./IconMap.json"
-import SearchInput from "./components/SearchInput/SearchInput.jsx"
+import SearchInput from "../../../components/SearchInput/SearchInput"
+import Card from "../../../components/Card/Card.jsx";
 import CardMoreInfo from "./components/CardMoreInfo/CardMoreInfo";
 import styles from "./styles.module.scss";
 
@@ -78,7 +79,7 @@ export default function Weather() {
     } = data
     return { name, icon, description, temp, feels_like, humidity, speed, sunrise, sunset };
   }
-  
+
   dayjs.locale('pt-br');
   const formatTime = () => {
     const date = dayjs();
@@ -89,16 +90,17 @@ export default function Weather() {
   return (
     <main className={styles.mainContent}>
       <ToastContainer />
-
-      <CardMoreInfo
-      speed={weatherData ? weatherData.speed : '...'}
-      humidity={weatherData ? weatherData.humidity : '...'}
-      sunrise={weatherData ? weatherData.sunrise : ''}
-      sunset={weatherData ? weatherData.sunset : ''}
-      />
+      <Card>
+        <CardMoreInfo
+          speed={weatherData ? weatherData.speed : '...'}
+          humidity={weatherData ? weatherData.humidity : '...'}
+          sunrise={weatherData ? weatherData.sunrise : ''}
+          sunset={weatherData ? weatherData.sunset : ''}
+        />
+      </Card>
 
       <section className={styles.weatherMainContent}>
-        <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn}/>
+        <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn} />
 
         <div id={styles.cityNameAndDate}>
           <p id={styles.cityName}>{weatherData ? weatherData.name : '...'}</p>
@@ -108,9 +110,9 @@ export default function Weather() {
         <picture>
           {isLoading ? (
             <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
-            ) : (
-              iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Ícone do tempo" />
-              )}
+          ) : (
+            iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Ícone do tempo" />
+          )}
         </picture>
 
         <p id={styles.description}>{weatherData ? weatherData.description : '...'}</p>
