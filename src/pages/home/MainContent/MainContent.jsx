@@ -99,7 +99,7 @@ export default function Weather() {
         />
       </Card>
 
-      <section className={styles.weatherMainContent}>
+      <Card className={styles.weatherMainContent}>
         <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn} />
 
         <div id={styles.cityNameAndDate}>
@@ -118,7 +118,7 @@ export default function Weather() {
         <p id={styles.description}>{weatherData ? weatherData.description : '...'}</p>
         <p id={styles.titleCurrentTemp}>Temperatura Atual</p>
         <p id={styles.currentTemp}>{weatherData ? Math.floor(weatherData.temp) - 1 : '...'}ºC</p>
-      </section>
+      </Card>
     </main>
   )
 }

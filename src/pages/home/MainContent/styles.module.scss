@@ -9,14 +9,9 @@
 }
 
 .weatherMainContent {
-    display: flex;
     width: 100%;
-    flex-direction: column;
-    box-shadow: 0px 0px 20px -5px rgb(122, 155, 179);
-    align-items: center;
     padding: 1rem;
-    border-radius: .75rem;
-    background-color: $bg-color-secundary;
+    align-items: center;
 }
 
 #cityNameAndDate {
