@@ -2,23 +2,30 @@
 @import "../../../../../styles/mixins.scss";
 
 .title{
-    @include fonts-style(normal, $font-secundary, normal);
-    margin: 0 auto 1rem;
-    padding: .4rem;
-    color: $text-color-primary;
+    @include font-style(normal, $font-secundary, normal, $text-color-primary);
+    @include common-measures(0 auto 1rem, .4rem);
 }
 .subtitles{
-    @include fonts-style(.95em, $font-primary, 400);
+    @include font-style(.95em, $font-primary, 400, #8574c3);
     padding-top: 1.5rem;
-    color: #8574c3;
 }
 .info{
-    @include fonts-style(1em, $font-primary, 500);
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
+    @include font-style(1em, $font-primary, 500, normal);
+    @include flex-box(flex, row, end, space-between);
     border-bottom: 1px solid #8574c3;
     & > span{
         font-size: .85em;
+        background-color: #dfdaf2;
+        padding: .15rem .55rem;
+        @include border(1px solid #8574c3, 0 .75rem);
+        transform: translateY(1px);
+    }
+    & > div {
+        @include flex-box(flex, row, end, start);
+        gap: .4rem;
+    }
+    & > div > img{
+        width: 25px;
+        height: 25px;
     }
 }
