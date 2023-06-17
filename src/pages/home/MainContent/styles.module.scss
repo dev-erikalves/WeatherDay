@@ -3,10 +3,13 @@
 
 
 .mainContent {
+    @include common-measures(auto, 3rem .5rem);
     display: flex;
-    gap: 1.5rem;
-    padding: 3rem 1rem;
-    flex-wrap: wrap;
+    max-width: 1400px;
+    gap: 1rem;
+    @media screen and (max-width: 940px) {
+        flex-wrap: wrap;
+    }
 }
 
 .weatherMainContent {
@@ -17,18 +20,17 @@
 
 #cityNameAndDate {
     @include flex-box(flex, row, start, space-between);
+    @include font-style(1.1em, $font-primary, normal, $text-color-primary);
     width: 100%;
     margin: 1rem 0 3rem;
-}
-
-#date {
-    @include font-style(1.1em, $font-primary, normal, $text-color-primary);
     letter-spacing: .1rem;
-}
-
-#cityName {
-    @include font-style(1.2em, $font-secundary, normal, $text-color-secundary);
-    letter-spacing: .15rem;
+    @media screen and (max-width: 600px) {
+        font-size: .9rem;
+        flex-direction: column;
+    }
+    #cityName {
+        color: $text-color-secundary;
+    }
 }
 
 .weatherMainContent > picture > img {
