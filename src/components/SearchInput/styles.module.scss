@@ -9,8 +9,7 @@
 
 #searchBtn {
     @include border(none, 50%);
-    padding: .75rem .8rem;
-    margin-left: -2rem;
+    @include common-measures(0 0 0 -2rem, .75rem .8rem);
     background-color: $text-color-secundary;
     cursor: pointer;
     &:hover {
@@ -21,7 +20,7 @@
 #searchInput {
     @include common-measures(auto, .8rem);
     @include border(none, .5rem 0 0 .5rem);
-    @include fonts-style(1em, $font-secundary, 500);
+    @include font-style(1em, $font-secundary, 500, normal);
     width: 100%;
     &:focus {
         outline: 1px solid #504a4a38;
