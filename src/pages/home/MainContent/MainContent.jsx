@@ -7,6 +7,7 @@ import iconMap from "./IconMap.json"
 import SearchInput from "../../../components/SearchInput/SearchInput"
 import Card from "../../../components/Card/Card.jsx";
 import CardMoreInfo from "./components/CardMoreInfo/CardMoreInfo";
+import CardOthers from "./components/CardOthers/CardOthers";
 import celsiusIcon from "../../../assets/celsius-icon.gif"
 import styles from "./styles.module.scss";
 
@@ -75,12 +76,14 @@ export default function Weather() {
   function extractInfosApi(data) {
     let {
       name,
+      visibility,
       weather: [{ icon, description }],
-      main: { temp, feels_like, humidity },
+      main: { temp, feels_like, humidity, sea_level },
+      clouds: { all },
       wind: { speed },
-      sys: { sunrise, sunset },
+      sys: { country, sunrise, sunset },
     } = data
-    return { name, icon, description, temp, feels_like, humidity, speed, sunrise, sunset };
+    return { name, visibility, icon, description, all, temp, feels_like, humidity, sea_level, speed, country, sunrise, sunset };
   }
 
   return (
@@ -108,7 +111,7 @@ export default function Weather() {
           {isLoading ? (
             <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
           ) : (
-            iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt={`Icone de ${weatherData.description}`} />
+            iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Icone do clima" />
           )}
         </picture>
 
@@ -118,9 +121,12 @@ export default function Weather() {
           <img src={celsiusIcon} alt="Icone de graus Celsius" />
         </p>
       </Card>
-      <Card>
-      
-      </Card>
+      <CardOthers
+        country={weatherData ? weatherData.country : ''}
+        visibility={weatherData ? weatherData.visibility / 1000 : ''}
+        sea_level={weatherData ? weatherData.sea_level : ''}
+        clouds={weatherData ? weatherData.all : ''}
+      />
     </main>
   )
 }
