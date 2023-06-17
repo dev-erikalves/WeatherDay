@@ -1,0 +1,7 @@
+@import "../../../../../styles/variables.scss";
+@import "../../../../../styles/mixins.scss";
+
+.title {
+    @include font-style(normal, $font-secundary, normal, $text-color-primary);
+    @include common-measures(0 auto 1rem, .4rem);
+}
