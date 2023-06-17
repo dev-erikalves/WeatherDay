@@ -8,4 +8,7 @@
     border-radius: .75rem;
     background-color: $bg-color-secundary;
     box-shadow: $box-shadow;
+    @media screen and (max-width: 940px) {
+        width: 100%;
+    }
 }
