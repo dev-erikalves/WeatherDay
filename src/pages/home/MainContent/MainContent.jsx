@@ -7,7 +7,10 @@ import iconMap from "./IconMap.json"
 import SearchInput from "../../../components/SearchInput/SearchInput"
 import Card from "../../../components/Card/Card.jsx";
 import CardMoreInfo from "./components/CardMoreInfo/CardMoreInfo";
+import celsiusIcon from "../../../assets/celsius-icon.gif"
 import styles from "./styles.module.scss";
+
+dayjs.locale('pt-br');
 
 export default function Weather() {
   const [city, setCity] = useState('');
@@ -80,13 +83,6 @@ export default function Weather() {
     return { name, icon, description, temp, feels_like, humidity, speed, sunrise, sunset };
   }
 
-  dayjs.locale('pt-br');
-  const formatTime = () => {
-    const date = dayjs();
-    const formattedDate = date.format('DD [de] MMMM [de] YYYY');
-    return formattedDate;
-  };
-
   return (
     <main className={styles.mainContent}>
       <ToastContainer />
@@ -96,6 +92,7 @@ export default function Weather() {
           humidity={weatherData ? weatherData.humidity : '...'}
           sunrise={weatherData ? weatherData.sunrise : ''}
           sunset={weatherData ? weatherData.sunset : ''}
+          feels_like={weatherData ? Math.floor(weatherData.feels_like) : '...'}
         />
       </Card>
 
@@ -104,20 +101,25 @@ export default function Weather() {
 
         <div id={styles.cityNameAndDate}>
           <p id={styles.cityName}>{weatherData ? weatherData.name : '...'}</p>
-          <p id={styles.date}>{weatherData ? formatTime(weatherData.dt) : '...'}</p>
+          <p id={styles.date}>{dayjs().format('DD [de] MMMM [de] YYYY')}</p>
         </div>
 
         <picture>
           {isLoading ? (
             <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
           ) : (
-            iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Ícone do tempo" />
+            iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt={`Icone de ${weatherData.description}`} />
           )}
         </picture>
 
         <p id={styles.description}>{weatherData ? weatherData.description : '...'}</p>
         <p id={styles.titleCurrentTemp}>Temperatura Atual</p>
-        <p id={styles.currentTemp}>{weatherData ? Math.floor(weatherData.temp) - 1 : '...'}ºC</p>
+        <p id={styles.currentTemp}>{weatherData ? Math.floor(weatherData.temp) : '...'}
+          <img src={celsiusIcon} alt="Icone de graus Celsius" />
+        </p>
+      </Card>
+      <Card>
+      
       </Card>
     </main>
   )
