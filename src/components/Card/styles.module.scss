@@ -2,11 +2,10 @@
 @import "../../styles/mixins.scss";
 
 .card{
-    display: flex;
+    @include flex-box(flex, column, normal, normal);
+    @include common-measures(0 auto, .5rem);
     min-width: 15rem;
-    margin: 0 auto;
-    flex-direction: column;
-    padding: .5rem;
     border-radius: .75rem;
     background-color: $bg-color-secundary;
+    box-shadow: $box-shadow;
 }
