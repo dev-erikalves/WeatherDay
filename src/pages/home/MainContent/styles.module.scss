@@ -15,43 +15,42 @@
 }
 
 #cityNameAndDate {
-    display: flex;
-    justify-content: space-between;
+    @include flex-box(flex, row, start, space-between);
     width: 100%;
     margin: 1rem 0 3rem;
 }
 
 #date {
-    @include fonts-style(1.1em, $font-primary, normal);
-    color: $text-color-primary;
+    @include font-style(1.1em, $font-primary, normal, $text-color-primary);
     letter-spacing: .1rem;
 }
 
 #cityName {
-    @include fonts-style(1.2em, $font-secundary, normal);
+    @include font-style(1.2em, $font-secundary, normal, $text-color-secundary);
     letter-spacing: .15rem;
-    color: $text-color-secundary;
 }
 
-.weatherMainContent>picture>img {
+.weatherMainContent > picture > img {
     max-width: 8rem;
     width: 8rem;
     margin-bottom: 2rem;
 }
 
 #description {
-    @include fonts-style(1.2em, $font-primary, normal);
-    color: $text-color-primary;
+    @include font-style(1.2em, $font-primary, normal, $text-color-primary);
     text-transform: capitalize;
 }
 
 #titleCurrentTemp {
-    @include fonts-style(1em, $font-secundary, normal);
+    @include font-style(1em, $font-secundary, normal, $text-color-secundary);
     margin: 1rem 0 .4rem;
-    color: $text-color-secundary;
 }
 
 #currentTemp {
-    @include fonts-style(1.5em, $font-primary, 600);
-    color: $text-color-secundary;
+    @include font-style(1.5em, $font-primary, 600, $text-color-secundary);
+    @include flex-box(flex, row, center, start);
+    & > img {
+        width: 25px;
+        height: 30px;
+    }
 }
