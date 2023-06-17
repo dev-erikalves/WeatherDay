@@ -6,13 +6,15 @@
     border: $border;
     border-radius: $border-radius;
 }
-@mixin fonts-style($font-size, $font-family, $font-weight){
+@mixin font-style($font-size, $font-family, $font-weight, $color){
     font-size: $font-size;
     font-family: $font-family;
     font-weight: $font-weight;
+    color: $color;
 }
-@mixin display-style($display, $flex-direction, $width){
+@mixin flex-box($display, $flex-direction, $align-items, $justify-content){
     display: $display;
     flex-direction: $flex-direction;
-    width: $width;
+    align-items: $align-items;
+    justify-content: $justify-content;
 }
