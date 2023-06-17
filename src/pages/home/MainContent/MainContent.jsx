@@ -89,15 +89,6 @@ export default function Weather() {
   return (
     <main className={styles.mainContent}>
       <ToastContainer />
-      <Card>
-        <CardMoreInfo
-          speed={weatherData ? weatherData.speed : '...'}
-          humidity={weatherData ? weatherData.humidity : '...'}
-          sunrise={weatherData ? weatherData.sunrise : ''}
-          sunset={weatherData ? weatherData.sunset : ''}
-          feels_like={weatherData ? Math.floor(weatherData.feels_like) : '...'}
-        />
-      </Card>
 
       <Card className={styles.weatherMainContent}>
         <SearchInput city={city} handleChangeInput={handleChangeInput} searchBtn={searchBtn} />
@@ -121,6 +112,13 @@ export default function Weather() {
           <img src={celsiusIcon} alt="Icone de graus Celsius" />
         </p>
       </Card>
+      <CardMoreInfo
+        speed={weatherData ? weatherData.speed : '...'}
+        humidity={weatherData ? weatherData.humidity : '...'}
+        sunrise={weatherData ? weatherData.sunrise : ''}
+        sunset={weatherData ? weatherData.sunset : ''}
+        feels_like={weatherData ? Math.floor(weatherData.feels_like) : '...'}
+      />
       <CardOthers
         country={weatherData ? weatherData.country : ''}
         visibility={weatherData ? weatherData.visibility / 1000 : ''}
