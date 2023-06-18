@@ -9,6 +9,7 @@ export default function SearchInput(props) {
             id={styles.searchInput} placeholder="Localização"
             value={props.city}
             onChange={props.handleChangeInput}
+            autoComplete="off"
         />
         
         <button onClick={props.searchBtn} id={styles.searchBtn}>
