@@ -3,7 +3,6 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
-import iconMap from "./IconMap.json"
 import SearchInput from "../../../components/SearchInput/SearchInput"
 import Card from "../../../components/Card/Card.jsx";
 import CardMoreInfo from "./components/CardMoreInfo/CardMoreInfo";
@@ -85,6 +84,19 @@ export default function Weather() {
     } = data
     return { name, visibility, icon, description, all, temp, feels_like, humidity, sea_level, speed, country, sunrise, sunset };
   }
+  const iconMap = {
+    "01d": "01d", "01n": "01n",
+    "02d": "02d", "02n": "02n",
+    "03d": "03d", "03n": "03n",
+    "04d": "04d", "04n": "04n",
+    "05d": "05d", "05n": "05n",
+    "06d": "06d", "06n": "06n",
+    "09d": "09d", "09n": "09n",
+    "10d": "10d", "10n": "10n",
+    "11d": "11d", "11n": "11n",
+    "13d": "13d", "13n": "13n",
+    "50d": "50d", "50n": "50n",
+  };
 
   return (
     <main className={styles.mainContent}>
@@ -102,7 +114,7 @@ export default function Weather() {
           {isLoading ? (
             <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
           ) : (
-            iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}`} alt="Icone do clima" />
+            iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}.svg`} alt="Icone do clima" />
           )}
         </picture>
 
