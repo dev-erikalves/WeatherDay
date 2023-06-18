@@ -1,0 +1,19 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.cardFooter{
+    @include flex-box(flex, column, center, center);
+    @include font-style(1.1em, $font-primary, normal, $text-color-secundary);
+    min-height: 12vh;
+    width: 100%;
+    & > #devBy{
+        color: $text-color-primary;
+        font-size: .8em;
+        & > a{
+            text-decoration: none;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}
