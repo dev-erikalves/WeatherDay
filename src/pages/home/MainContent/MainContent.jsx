@@ -18,7 +18,7 @@ export default function Weather() {
   const [iconCode, setIconCode] = useState(null);
   const [isLoading, setIsLoading] = useState(true)
 
-  const api_key = "e5cebe1949b3839661f4b78ddfa60298";
+  const api_key = "your_apiKey";
 
   const fetchWeatherData = (url) => {
     fetch(url)
