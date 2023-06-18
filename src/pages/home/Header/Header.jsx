@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import logoHeader from "../../../assets/logo-header.gif"
+import logoHeader from "../../../assets/logo-header.png"
 import styles from "./styles.module.scss";
 
 export default function Header() {
