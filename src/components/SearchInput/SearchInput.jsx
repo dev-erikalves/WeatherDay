@@ -10,6 +10,8 @@ export default function SearchInput(props) {
             value={props.city}
             onChange={props.handleChangeInput}
             autoComplete="off"
+            onKeyDown={props.onKeyDown}
+            
         />
         
         <button onClick={props.searchBtn} id={styles.searchBtn}>
