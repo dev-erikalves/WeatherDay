@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import dayjs from 'dayjs';
-import 'dayjs/locale/pt-br';
+import { useState, useEffect } from "react"
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
+import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
 import SearchInput from "../../../components/SearchInput/SearchInput"
-import Card from "../../../components/Card/Card.jsx";
-import CardMoreInfo from "./components/CardMoreInfo/CardMoreInfo";
-import CardOthers from "./components/CardOthers/CardOthers";
+import Card from "../../../components/Card/Card.jsx"
+import CardMoreInfo from "./components/CardMoreInfo/CardMoreInfo"
+import CardOthers from "./components/CardOthers/CardOthers"
 import celsiusIcon from "../../../assets/celsius-icon.gif"
-import styles from "./styles.module.scss";
+
+import styles from "./styles.module.scss"
 
 dayjs.locale('pt-br');
 
@@ -33,7 +34,7 @@ export default function Weather() {
           throw new Error('Error 404 - Not Found. You can get 404 error if data with requested parameters (`lat`, `lon`, `date`) does not exist in service database. You must not retry the same request')
         } else if (response.status === 429) {
           throw new Error('Error 429 - Too Many Requests. You can get 429 error if key quato of requests for provided API to this API was exceeded. You may retry request after some time or after extending your key quota')
-        } else if (response.status === '5xx') {
+        } else if (response.status >= 500 && response.status < 600 ) {
           throw new Error('Errors 5xx - Unexpected Error. You can get "5xx" error in case of other internal errors. Error Response code will be `5xx`. Please contact us and enclose an example of your API request that receives this error into your email to let us analyze it and find a solution for you promptly. You may retry the request which led to this error.')
         } else {
           throw new Error('Erro na solicitação de resposta da API');
@@ -100,19 +101,6 @@ function extractInfosApi(data) {
   } = data
   return { name, visibility, icon, description, all, temp, feels_like, humidity, sea_level, speed, country, sunrise, sunset };
 }
-const iconMap = {
-  "01d": "01d", "01n": "01n",
-  "02d": "02d", "02n": "02n",
-  "03d": "03d", "03n": "03n",
-  "04d": "04d", "04n": "04n",
-  "05d": "05d", "05n": "05n",
-  "06d": "06d", "06n": "06n",
-  "09d": "09d", "09n": "09n",
-  "10d": "10d", "10n": "10n",
-  "11d": "11d", "11n": "11n",
-  "13d": "13d", "13n": "13n",
-  "50d": "50d", "50n": "50n",
-};
 
 return (
   <main className={styles.mainContent}>
@@ -130,7 +118,7 @@ return (
         {isLoading ? (
           <img src="../../../src/assets/loading-icon.svg" alt="Ícone de carregamento" />
         ) : (
-          iconCode && <img src={`../../../src/assets/${iconMap[iconCode]}.svg`} alt="Icone do clima" />
+          iconCode && <img src={`../../../src/assets/${iconCode}.svg`} alt="Icone do clima" />
         )}
       </picture>
 
