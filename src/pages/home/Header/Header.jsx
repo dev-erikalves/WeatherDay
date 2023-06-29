@@ -4,14 +4,15 @@ import styles from "./styles.module.scss";
 
 export default function Header() {
     useEffect(() => {
-        const timeElement = document.getElementById('time');
+        const time = document.getElementById('time');
     
         function updateTime() {
           const now = new Date();
-    
+          const hours = ('0' + now.getHours()).slice(-2);
           const seconds = ('0' + now.getSeconds()).slice(-2);
+          const minutes = ('0' + now.getMinutes()).slice(-2);
     
-          timeElement.textContent = `${now.getHours()}:${now.getMinutes()}:${seconds}`;
+          time.textContent = `${hours}:${minutes}:${seconds}`;
         }
     
         updateTime();
