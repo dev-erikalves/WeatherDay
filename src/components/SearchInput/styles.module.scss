@@ -16,6 +16,9 @@
         background-color: #2e2d2d;
         scale: 1.03;
     }
+    & > img {
+        width: 1.6rem;
+    }
 }
 #searchInput {
     @include common-measures(auto, .8rem);
