@@ -6,8 +6,7 @@ import 'dayjs/locale/pt-br'
 import SearchInput from "../../../components/SearchInput/SearchInput"
 import Card from "../../../components/Card/Card.jsx"
 import CardMoreInfo from "./components/CardMoreInfo/CardMoreInfo"
-import CardOthers from "./components/CardOthers/CardOthers"
-import celsiusIcon from "../../../assets/celsius-icon.gif"
+import celsiusIcon from "../../../assets/celsius-icon.webp"
 
 import styles from "./styles.module.scss"
 
@@ -19,7 +18,7 @@ export default function MainContent() {
   const [iconCode, setIconCode] = useState(null);
   const [isLoading, setIsLoading] = useState(true)
 
-  const api_key = "1a92e05ea53d96ba050838ae7c79e8f1";
+  const api_key = "your_api_key";
 
   const fetchWeatherData = (url) => {
     fetch(url)
@@ -31,7 +30,6 @@ export default function MainContent() {
         } else if (response.status === 401) {
           throw new Error('Error 401 - Unauthorized. You can get 401 error if API token did not providen in the request or in case API token provided in the request does not grant access to this API. You must add API token with granted access to the product to the request before returning it')
         } else if (response.status === 404) {
-          toast.info("Cidade não encontrada, por favor tente novamente!")
           throw new Error('Error 404 - Not Found. You can get 404 error if data with requested parameters (`lat`, `lon`, `date`) does not exist in service database. You must not retry the same request')
         } else if (response.status === 429) {
           throw new Error('Error 429 - Too Many Requests. You can get 429 error if key quato of requests for provided API to this API was exceeded. You may retry request after some time or after extending your key quota')
@@ -48,6 +46,7 @@ export default function MainContent() {
       })
       .catch((error) => {
         console.error(error);
+        toast.info("Cidade não encontrada, por favor tente novamente!")
       });
   };
 
