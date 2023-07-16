@@ -18,7 +18,7 @@ export default function MainContent() {
   const [iconCode, setIconCode] = useState(null);
   const [isLoading, setIsLoading] = useState(true)
 
-  const api_key = "your_api_key";
+  const api_key = import.meta.env.VITE_API_KEY
 
   const fetchWeatherData = (url) => {
     fetch(url)
